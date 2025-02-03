@@ -1,19 +1,15 @@
-# Use Node.js v14
-FROM node:20
 
-# Create app directory
+# Use the official Node.js image as the base image
+FROM node:18
+
+# Set the working directory in the container
 WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
+# Copy the application files into the working directory
+COPY . /app
 
+# Install the application dependencies
 RUN npm install
 
-# Bundle app source
-COPY . .
-
-# Expose the port
-EXPOSE 3000
-
-CMD [ "node", "server.js" ]
+# Define the entry point for the container
+CMD ["node", "server.js"]
