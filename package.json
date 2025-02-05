@@ -2,7 +2,7 @@
 
     "scripts": {
   "start": "node server.js",
-  "build": " npm install && npx playwright install "
+  "build": " npm install "
 }
 ,
   "dependencies": {
