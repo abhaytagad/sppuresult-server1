@@ -104,7 +104,7 @@ async function scrapeWebsite() {
 }
 
 // Schedule scraping job every 25 minutes
-cron.schedule('*/1 * * * *', () => {
+cron.schedule('*/25 * * * *', () => {
   console.log('Running scheduled scraping job (every 25 minutes)');
   scrapeWebsite().catch((err) => {
     console.error('Error during scheduled scraping:', err);
