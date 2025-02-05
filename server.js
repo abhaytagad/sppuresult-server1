@@ -26,9 +26,9 @@ async function scrapeWebsite() {
   // Launch Puppeteer with the correct Chromium path for Render or your environment
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    executablePath: process.env.CHROME_BIN || '/usr/bin/chromium-browser', // Default path for Chromium in Render
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
+  
 
   const page = await browser.newPage();
 
