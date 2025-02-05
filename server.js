@@ -37,7 +37,6 @@ async function scrapeWebsite() {
   // Launch Puppeteer browser with environment-based configuration
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath: path,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   
