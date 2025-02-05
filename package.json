@@ -1,8 +1,8 @@
 {
 
-    "scripts": {
+"scripts": {
   "start": "node server.js",
-  "build": " npm install && npx playwright install chromium && npx playwright install firefox && npx playwright install webkit"
+  "build": " npm install && npm install playwright && npx playwright install chromium && npx playwright install firefox && npx playwright install webkit"
 }
 ,
   "dependencies": {
