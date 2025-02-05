@@ -35,11 +35,10 @@ mongoose.connect(mongoDBUrl, {
 
 async function scrapeWebsite() {
   // Launch Puppeteer browser with environment-based configuration
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
   
+  const browser = await puppeteer.launch({
+    ignoreDefaultArgs: ['--mute-audio','--no-sandbox', '--disable-setuid-sandbox'],
+  });
 
   const page = await browser.newPage();
 
