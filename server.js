@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer'); // Import Puppeteer
 
 // Log the executable path that Puppeteer is using
 console.log('Puppeteer Executable Path:', puppeteer.executablePath());
-
+const path = puppeteer.executablePath();
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 const express = require('express');
@@ -37,7 +37,7 @@ async function scrapeWebsite() {
   // Launch Puppeteer browser with environment-based configuration
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || ' C:\Users\omshi\.cache\puppeteer\chrome\win64-133.0.6943.53\chrome-win64\chrome.exe',
+    executablePath: path,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   
