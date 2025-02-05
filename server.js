@@ -1,4 +1,9 @@
 const puppeteer = require('puppeteer'); // Import Puppeteer
+
+
+// Log the executable path that Puppeteer is using
+console.log('Puppeteer Executable Path:', puppeteer.executablePath());
+
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 const express = require('express');
@@ -29,11 +34,13 @@ mongoose.connect(mongoDBUrl, {
   .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 async function scrapeWebsite() {
-  // Launch Puppeteer browser
+  // Launch Puppeteer browser with environment-based configuration
   const browser = await puppeteer.launch({
-    headless: true, // Run in headless mode
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    headless: true,
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || ' C:\Users\omshi\.cache\puppeteer\chrome\win64-133.0.6943.53\chrome-win64\chrome.exe',
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
+  
 
   const page = await browser.newPage();
 
