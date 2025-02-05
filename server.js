@@ -34,7 +34,7 @@ mongoose.connect(mongoDBUrl, {
   .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 async function scrapeWebsite() {
-  // Launch Puppeteer browser with environment-based configuration
+ 
   
   const browser = await puppeteer.launch({
     ignoreDefaultArgs: ['--mute-audio','--no-sandbox', '--disable-setuid-sandbox'],
@@ -104,7 +104,7 @@ async function scrapeWebsite() {
 }
 
 // Schedule scraping job every 25 minutes
-cron.schedule('*/25 * * * *', () => {
+cron.schedule('*/1 * * * *', () => {
   console.log('Running scheduled scraping job (every 25 minutes)');
   scrapeWebsite().catch((err) => {
     console.error('Error during scheduled scraping:', err);
