@@ -1,4 +1,4 @@
-const { chromium } = require('playwright');
+const puppeteer = require('puppeteer'); // Import Puppeteer
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 const express = require('express');
@@ -29,10 +29,10 @@ mongoose.connect(mongoDBUrl, {
   .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 async function scrapeWebsite() {
-  // Launch Playwright Chromium browser
-  const browser = await chromium.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  // Launch Puppeteer browser
+  const browser = await puppeteer.launch({
+    headless: true, // Run in headless mode
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
   });
 
   const page = await browser.newPage();

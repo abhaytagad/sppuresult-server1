@@ -1,14 +1,19 @@
 {
-
-"scripts": {
-  "start": "node server.js",
-  "build": " npm install && npm install playwright && npx playwright install chromium && npx playwright install firefox && npx playwright install webkit"
-}
-,
+  "name": "server1",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000s\u0000p\u0000p\u0000u\u0000r\u0000e\u0000s\u0000u\u0000l\u0000t\u0000-\u0000s\u0000e\u0000r\u0000v\u0000e\u0000r\u00001\u0000\r\u0000 \u0000",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.21.2",
     "mongoose": "^8.9.7",
     "node-cron": "^3.0.3",
-    "playwright": "^1.50.1"
+    "puppeteer": "^24.2.0"
   }
 }
