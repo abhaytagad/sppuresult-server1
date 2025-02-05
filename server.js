@@ -2,6 +2,16 @@ const puppeteer = require('puppeteer');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 
+const express = require('express');
+const app = express();
+
+
+
+const PORT =  3000;  // Use the port provided by Render, or fallback to 3000 for local development
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 const Schema = mongoose.Schema;
 const examSchema = new Schema({
