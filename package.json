@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "apt-get update && apt-get install -y wget gnupg && ./install_chrome.sh && npm install"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +17,7 @@
     "mongoose": "^8.9.6",
     "node-cron": "^3.0.3",
     "nodemon": "^3.1.9",
-    "puppeteer": "^24.1.1"  
+    "puppeteer": "^24.1.1"
   },
   "description": ""
 }
