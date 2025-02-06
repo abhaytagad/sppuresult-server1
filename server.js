@@ -37,9 +37,11 @@ async function scrapeWebsite() {
  
   
   const browser = await puppeteer.launch({
-    ignoreDefaultArgs: ['--mute-audio','--no-sandbox', '--disable-setuid-sandbox'],
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: puppeteer.executablePath() // Automatically use Puppeteer's Chromium
   });
-
+  
   const page = await browser.newPage();
 
   await page.goto('https://onlineresults.unipune.ac.in/Result/Dashboard/Default', {
