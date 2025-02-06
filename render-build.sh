@@ -1,5 +1,5 @@
 # render-build.sh
 #!/bin/bash
 
-# Install Chromium before running the server
-npx puppeteer install
+# Install Chrome for Puppeteer
+npx puppeteer browsers install chrome

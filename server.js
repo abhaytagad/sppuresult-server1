@@ -37,10 +37,9 @@ async function scrapeWebsite() {
  
   
   const browser = await puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    ignoreDefaultArgs: ['--disable-extensions'], // Disable any extensions
     headless: true,
-    ignoreHTTPSErrors: true
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: '/opt/render/.cache/puppeteer/chrome/linux-133.0.6943.53/chrome-linux64/chrome'  // Exact path to Chrome
   });
   
   
