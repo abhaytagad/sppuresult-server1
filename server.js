@@ -47,8 +47,10 @@ async function scrapeWebsite() {
 
   await page.goto('https://onlineresults.unipune.ac.in/Result/Dashboard/Default', {
     waitUntil: 'load',
-    timeout: 0,
-  });
+    timeout: 60000
+});
+
+
 
   await page.waitForSelector('tr');
 
