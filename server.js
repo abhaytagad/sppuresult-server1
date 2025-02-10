@@ -65,7 +65,7 @@ async function scrapeWebsite() {
       console.log(`Attempt ${attempt + 1}: Navigating to the website...`);
       await page.goto('https://onlineresults.unipune.ac.in/Result/Dashboard/Default', {
         waitUntil: 'load',
-        timeout: 120000 // Set a 2-minute timeout for loading
+        timeout: 1200000000 // Set a 2-minute timeout for loading
       });
 
       await page.waitForSelector('tr'); // Wait for rows to load
