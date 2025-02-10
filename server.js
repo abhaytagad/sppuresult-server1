@@ -48,53 +48,64 @@ const scrapeWebsiteWithRetry = async (attempts = 3) => {
   }
 };
 
-// Scrape website data
+// Scrape website data with retry on timeout
 async function scrapeWebsite() {
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    executablePath: '/opt/render/.cache/puppeteer/chrome/linux-133.0.6943.53/chrome-linux64/chrome'  // Exact path to Chrome
+    executablePath: '/opt/render/.cache/puppeteer/chrome/linux-133.0.6943.53/chrome-linux64/chrome' // Exact path to Chrome
   });
 
   const page = await browser.newPage();
 
-  try {
-    await page.goto('https://onlineresults.unipune.ac.in/Result/Dashboard/Default', {
-      waitUntil: 'load',
-      timeout: 120000 // Set a 2-minute timeout for loading
-    });
+  let retries = 3; // Set the number of retries in case of failure
 
-    await page.waitForSelector('tr'); // Wait for rows to load
-
-    const examDetails = await page.evaluate(() => {
-      const regex = /Enterdetails\('([^']+)','([^']+)'\)/;
-      const rows = document.querySelectorAll('tr');
-      const exams = [];
-
-      rows.forEach((row) => {
-        const examData = row.innerHTML;
-        const match = examData.match(regex);
-
-        if (match) {
-          const patternName = match[1];
-          const patternId = match[2];
-          const examName = row.querySelector('td:nth-child(2)').innerText.trim();
-
-          exams.push({ examName, patternName, patternId });
-        }
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      console.log(`Attempt ${attempt + 1}: Navigating to the website...`);
+      await page.goto('https://onlineresults.unipune.ac.in/Result/Dashboard/Default', {
+        waitUntil: 'load',
+        timeout: 120000 // Set a 2-minute timeout for loading
       });
 
-      return exams;
-    });
+      await page.waitForSelector('tr'); // Wait for rows to load
 
-    // Save or update exam details in MongoDB
-    await updateExamsInDB(examDetails);
+      const examDetails = await page.evaluate(() => {
+        const regex = /Enterdetails\('([^']+)','([^']+)'\)/;
+        const rows = document.querySelectorAll('tr');
+        const exams = [];
 
-  } catch (err) {
-    console.error('Error during scraping:', err);
-  } finally {
-    await browser.close();
+        rows.forEach((row) => {
+          const examData = row.innerHTML;
+          const match = examData.match(regex);
+
+          if (match) {
+            const patternName = match[1];
+            const patternId = match[2];
+            const examName = row.querySelector('td:nth-child(2)').innerText.trim();
+
+            exams.push({ examName, patternName, patternId });
+          }
+        });
+
+        return exams;
+      });
+
+      // Save or update exam details in MongoDB
+      await updateExamsInDB(examDetails);
+      break; // Exit the loop if successful
+
+    } catch (err) {
+      if (attempt === retries - 1) {
+        console.error('All retries failed. Could not load the page.');
+      } else {
+        console.error(`Attempt ${attempt + 1} failed. Retrying in 5 seconds...`);
+        await delay(5000); // Wait for 5 seconds before retrying
+      }
+    }
   }
+
+  await browser.close();
 }
 
 // MongoDB logic to save or update exam details
